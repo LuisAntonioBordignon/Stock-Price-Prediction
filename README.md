@@ -1,4 +1,7 @@
-# Stock-Price-Prediction
+[Fábio Ayres, Dr.](http://lattes.cnpq.br/6229400946752974). Machine Learning.
+[Insper](https://github.com/Insper), 2024.
+
+# Stock Price Prediction
 
 ## Dataset
 
@@ -14,7 +17,7 @@ Binance Book Ticker - COIN-M
 | transaction_time | Transaction Time    |
 | event_time       | Event Time          |
 
-### Data disclaimer
+## Data disclaimer
 
 Please note that our project follow the [Binance Terms of Use](https://www.binance.com/en/terms).
 

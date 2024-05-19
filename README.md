@@ -18,15 +18,15 @@ without converting their crypto assets to stablecoins.
 
 Binance COIN-Margined Futures Book Ticker:
 
-| Field Name       | Description                                 |
-| ---------------- | ------------------------------------------- |
-| update_id        | Unique identifier for the order book update |
-| best_bid_price   | Highest price buyers are willing to pay     |
-| best_bid_qty     | Quantity available at the highest bid price |
-| best_ask_price   | Lowest price sellers are willing to accept  |
-| best_ask_qty     | Quantity available at the lowest ask price  |
-| transaction_time | Timestamp of the transaction                |
-| event_time       | Timestamp when the event was recorded       |
+| Field Name         | Description                                 |
+| ------------------ | ------------------------------------------- |
+| `update_id`        | Unique identifier for the order book update |
+| `best_bid_price`   | Highest price buyers are willing to pay     |
+| `best_bid_qty`     | Quantity available at the highest bid price |
+| `best_ask_price`   | Lowest price sellers are willing to accept  |
+| `best_ask_qty`     | Quantity available at the lowest ask price  |
+| `transaction_time` | Timestamp of the transaction                |
+| `event_time`       | Timestamp when the event was recorded       |
 
 Binance. **Historical Market Data**. 2024. https://www.binance.com/en/landing/data.
 
@@ -68,5 +68,6 @@ data are prohibited:
 > - (e) any damages incurred by other users’ actions, omissions or violation of
 > these terms,
 > - (f) any damage caused by illegal actions of other third parties or actions
->   without authorized by Binance; and (g) other exemptions mentioned in
->   disclaimers and platform rules issued by Binance.
+>   without authorized by Binance; and
+> - (g) other exemptions mentioned in disclaimers and platform rules issued by
+>   Binance.

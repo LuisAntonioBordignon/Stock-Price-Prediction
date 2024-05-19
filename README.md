@@ -42,17 +42,17 @@ Binance. **Historical Market Data**. 2024. https://www.binance.com/en/landing/da
 
 ### Download datasets
 
-You can download the necessary datasets by running the `download.py` script
-located in the `src/lib` directory:
+You can download the necessary datasets by running the `pull-data.py` script
+located in the `script` directory:
 
 #### macOS/Linux
 ```sh
-python3 ./src/lib/download.py
+python3 ./script/pull-data.py
 ```
 
 #### Windows
 ```ps
-python .\src\lib\download.py
+python .\script\pull-data.py
 ```
 
 ## Data disclaimer

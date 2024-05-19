@@ -6,12 +6,12 @@ from concurrent import futures
 import requests
 
 
-class Download:
+class Script:
     @staticmethod
-    def execute_datasets(datasets, basedir: Path = Path.cwd() / "data"):
-        taks = Download._make_tasks(datasets, basedir)
+    def pull_datasets(datasets, basedir: Path = Path.cwd() / "data"):
+        taks = Script._make_tasks(datasets, basedir)
 
-        return Download._execute_tasks(taks)
+        return Script._execute_tasks(taks)
 
     @staticmethod
     def _make_tasks(sources, basedir: Path):
@@ -33,7 +33,7 @@ class Download:
 
         with futures.ThreadPoolExecutor() as executor:
             pool_tasks = [
-                executor.submit(Download._download_and_extract_zip, url, extract_to)
+                executor.submit(Script._download_and_extract_zip, url, extract_to)
                 for url, extract_to in tasks
             ]
 
@@ -63,7 +63,7 @@ class Download:
 if __name__ == "__main__":
     BASE_URL = "https://data.binance.vision/data/futures/cm/daily/bookTicker/"
 
-    Download.execute_datasets({
+    Script.pull_datasets({
         "ADA": [
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-17.zip",

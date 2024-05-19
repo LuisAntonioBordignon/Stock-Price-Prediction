@@ -1,5 +1,6 @@
 ipykernel
-pandas
-numpy
 matplotlib
+numpy
+pandas
+requests
 scikit-learn

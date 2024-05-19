@@ -40,6 +40,21 @@ Binance. **Historical Market Data**. 2024. https://www.binance.com/en/landing/da
 | `DOG`  | [DOG•GO•TO•THE•MOON](https://www.binance.com/en/price/dog-go-to-the-moon-rune) | 2024-04-01 | 2024-04-07 |
 | `NEAR` | [NEAR Protocol Price](https://www.binance.com/en/price/near-protocol)          | 2024-04-01 | 2024-04-07 |
 
+### Download datasets
+
+You can download the necessary datasets by running the `download.py` script
+located in the `src/lib` directory:
+
+#### macOS/Linux
+```sh
+python3 ./src/lib/download.py
+```
+
+#### Windows
+```ps
+python .\src\lib\download.py
+```
+
 ## Data disclaimer
 
 Please note that our project follow the

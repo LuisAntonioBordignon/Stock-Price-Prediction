@@ -55,6 +55,21 @@ python3 ./script/pull-data.py
 python .\script\pull-data.py
 ```
 
+## Authors
+
+<table>
+   <tr>
+      <td align="center">
+         <a href="https://github.com/LuisAntonioBordignon"><img src="https://avatars.githubusercontent.com/LuisAntonioBordignon" alt="Luís Antônio Bordignon" width="256"/><br />
+         Luís Antônio Bordignon</a>
+      </td>
+      <td align="center">
+         <a href="https://github.com/FelixLuciano"><img src="https://avatars.githubusercontent.com/FelixLuciano" alt="Luciano Felix" width="256"/><br />
+         Luciano Felix</a>
+      </td>
+   </tr>
+</table>
+
 ## Data disclaimer
 
 Please note that our project follow the

@@ -43,6 +43,7 @@ class Script:
                 ],
             )
 
+
 if __name__ == "__main__":
     tickers = ["ADA", "AXS", "BTC", "DOGE", "NEAR"]
 

@@ -19,10 +19,12 @@ class Script:
             dataframe.to_parquet(filename, index=False)
 
     def _process_dataframes(self):
-        for dataframe in self._load_dataframes():
-            mid_price = (dataframe["best_ask_price"] + dataframe["best_bid_price"]) / 2
+        for df in self._load_dataframes():
+            mid_price = (df["best_ask_price"] + df["best_bid_price"]) / 2
+            df['event_time'] = pd.to_datetime(df['event_time'])
+            df = df.set_index('event_time')
 
-            yield dataframe.assign(mid_price=mid_price)
+            yield df.assign(mid_price=mid_price)
 
     def _load_dataframes(self):
         for data_file in self.data_dir.glob("*.csv"):

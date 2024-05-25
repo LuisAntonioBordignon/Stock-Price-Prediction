@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import pandas as pd
@@ -6,7 +5,7 @@ import pandas as pd
 
 class Script:
     ticker: str
-    data_dir: str
+    data_dir: Path
 
     def __init__(self, ticker: str, basedir: Path = Path.cwd() / "data"):
         """Download data, preprocess and save it to a file."""
@@ -28,12 +27,9 @@ class Script:
             yield dataframe.assign(mid_price=mid_price)
 
     def _load_dataframes(self):
-        for file in os.listdir(self.data_dir):
-            if not file.endswith(".csv"):
-                continue
-
+        for data_file in self.data_dir.glob("*.csv"):
             yield pd.read_csv(
-                f"{self.data_dir}/{file}",
+                data_file,
                 usecols=[
                     "best_ask_price",
                     "best_ask_qty",
@@ -42,6 +38,8 @@ class Script:
                     "event_time",
                 ],
             )
+
+            data_file.unlink()
 
 
 if __name__ == "__main__":

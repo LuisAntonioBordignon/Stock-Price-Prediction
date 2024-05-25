@@ -11,7 +11,7 @@ class Script:
         """Download data, preprocess and save it to a file."""
         self.ticker = ticker
         self.data_dir = basedir / ticker
-    
+
     def preprocess(self):
         for index, dataframe in enumerate(self._process_dataframes()):
             filename = self.data_dir / f"{self.ticker}-day_{index}.parquet"

@@ -2,5 +2,6 @@ ipykernel
 matplotlib
 numpy
 pandas
+pyarrow
 requests
 scikit-learn

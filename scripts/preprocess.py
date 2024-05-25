@@ -13,9 +13,7 @@ class Script:
         self.data_dir = basedir / ticker
     
     def preprocess(self):
-        preprocessed_dataframes = self._process_dataframes()
-
-        for index, dataframe in enumerate(preprocessed_dataframes):
+        for index, dataframe in enumerate(self._process_dataframes()):
             filename = self.data_dir / f"{self.ticker}-day_{index}.parquet"
 
             dataframe.to_parquet(filename, index=False)

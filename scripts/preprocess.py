@@ -10,10 +10,10 @@ class Script:
     def __init__(self, ticker: str, basedir: Path = Path.cwd() / "data"):
         """Download data, preprocess and save it to a file."""
         self.ticker = ticker
-        self.data_dir = basedir / ticker
+        self.data_dir = basedir / "tickers" / ticker
 
     def preprocess(self):
-        for index, dataframe in enumerate(self._process_dataframes()):
+        for index, dataframe in enumerate(self._process_dataframes(), 1):
             filename = self.data_dir / f"{self.ticker}-day_{index}.parquet"
 
             dataframe.to_parquet(filename, index=False)

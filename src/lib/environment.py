@@ -53,8 +53,3 @@ class Environment:
 
                     X_train = data[[col for col in data.columns if col != "mid_price"]]
                     y_train = data["mid_price"]
-
-                    
-
-
-

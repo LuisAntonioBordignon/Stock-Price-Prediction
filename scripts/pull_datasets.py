@@ -8,7 +8,7 @@ import requests
 
 class Script:
     @staticmethod
-    def pull_datasets(datasets, basedir: Path = Path.cwd() / "data"):
+    def pull_datasets(datasets, basedir: Path = Path.cwd() / "data" / "tickers"):
         taks = Script._make_tasks(datasets, basedir)
 
         return Script._execute_tasks(taks)

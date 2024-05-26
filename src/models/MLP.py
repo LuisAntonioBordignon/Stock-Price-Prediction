@@ -19,14 +19,11 @@ class MLP:
 
     def fitting(self, X_train: pd.DataFrame, y_train: pd.DataFrame) :
         
-        # return self.model.fit(
-        #     X_train, 
-        #     y_train, 
-        #     epochs=100, 
-        #     batch_size=32, 
-        #     verbose=0
-        # )
-
-        return print(f"Fitting (AAAAA)")
-
+        return self.model.fit(
+            X_train, 
+            y_train, 
+            epochs=10, 
+            batch_size=32, 
+            verbose=1
+        )
     

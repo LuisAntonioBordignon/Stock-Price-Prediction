@@ -16,13 +16,14 @@ class Script:
         for index, dataframe in enumerate(self._process_dataframes(), 1):
             filename = self.data_dir / f"{self.ticker}-day_{index}.parquet"
 
-            dataframe.to_parquet(filename, index=False)
+            dataframe.to_parquet(filename)
 
     def _process_dataframes(self):
         for df in self._load_dataframes():
-            mid_price = (df["best_ask_price"] + df["best_bid_price"]) / 2
+            df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
+            df["mid_price"] = (df["best_ask_price"] + df["best_bid_price"]) / 2
 
-            yield df.assign(mid_price=mid_price)
+            yield df.set_index("event_time") 
 
     def _load_dataframes(self):
         for data_file in self.data_dir.glob("*.csv"):
@@ -33,6 +34,7 @@ class Script:
                     "best_ask_qty",
                     "best_bid_price",
                     "best_bid_qty",
+                    "event_time",
                 ],
             )
 

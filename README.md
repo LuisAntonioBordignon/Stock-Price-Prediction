@@ -41,39 +41,17 @@ https://www.binance.com/en/landing/data.
 | `DOGE` | [DOG•GO•TO•THE•MOON](https://www.binance.com/en/price/dog-go-to-the-moon-rune) | 2024-04-01 | 2024-04-07 |
 | `NEAR` | [NEAR Protocol Price](https://www.binance.com/en/price/near-protocol)          | 2024-04-01 | 2024-04-07 |
 
-### Exploratory Analisys
+### Exploratory Analysis
 
 <details>
 
-Cardano:
-
-|                   Feature 1                    |                   Feature 2                    |                     Target                     |
-| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
-| ![OHLC Chart](assets/image/ADA-day_0-ohlc.svg) | ![OHLC Chart](assets/image/ADA-day_1-ohlc.svg) | ![OHLC Chart](assets/image/ADA-day_2-ohlc.svg) |
-
-Axie Infinity:
-
-|                   Feature 1                    |                   Feature 2                    |                     Target                     |
-| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
-| ![OHLC Chart](assets/image/AXS-day_0-ohlc.svg) | ![OHLC Chart](assets/image/AXS-day_1-ohlc.svg) | ![OHLC Chart](assets/image/AXS-day_2-ohlc.svg) |
-
-Bitcoin:
-
-|                   Feature 1                    |                   Feature 2                    |                     Target                     |
-| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
-| ![OHLC Chart](assets/image/BTC-day_0-ohlc.svg) | ![OHLC Chart](assets/image/BTC-day_1-ohlc.svg) | ![OHLC Chart](assets/image/BTC-day_2-ohlc.svg) |
-
-DOG•GO•TO•THE•MOON:
-
-|                    Feature 1                    |                    Feature 2                    |                     Target                      |
-| :---------------------------------------------: | :---------------------------------------------: | :---------------------------------------------: |
-| ![OHLC Chart](assets/image/DOGE-day_0-ohlc.svg) | ![OHLC Chart](assets/image/DOGE-day_1-ohlc.svg) | ![OHLC Chart](assets/image/DOGE-day_2-ohlc.svg) |
-
-NEAR Protocol Price:
-
-|                    Feature 1                    |                    Feature 2                    |                     Target                      |
-| :---------------------------------------------: | :---------------------------------------------: | :---------------------------------------------: |
-| ![OHLC Chart](assets/image/NEAR-day_0-ohlc.svg) | ![OHLC Chart](assets/image/NEAR-day_1-ohlc.svg) | ![OHLC Chart](assets/image/NEAR-day_2-ohlc.svg) |
+| Symbol |                 Day 1                 |                 Day 2                 |                 Day 3                 |                 Day 4                 |                 Day 5                 |
+| :----: | :-----------------------------------: | :-----------------------------------: | :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
+| `ADA`  | ![](assets/image/ADA-day_1-ohlc.svg)  | ![](assets/image/ADA-day_2-ohlc.svg)  | ![](assets/image/ADA-day_3-ohlc.svg)  | ![](assets/image/ADA-day_4-ohlc.svg)  | ![](assets/image/ADA-day_5-ohlc.svg)  |
+| `AXS`  | ![](assets/image/AXS-day_1-ohlc.svg)  | ![](assets/image/AXS-day_2-ohlc.svg)  | ![](assets/image/AXS-day_3-ohlc.svg)  | ![](assets/image/AXS-day_4-ohlc.svg)  | ![](assets/image/AXS-day_5-ohlc.svg)  |
+| `BTC`  | ![](assets/image/BTC-day_1-ohlc.svg)  | ![](assets/image/BTC-day_2-ohlc.svg)  | ![](assets/image/BTC-day_3-ohlc.svg)  | ![](assets/image/BTC-day_4-ohlc.svg)  | ![](assets/image/BTC-day_5-ohlc.svg)  |
+| `DOGE` | ![](assets/image/DOGE-day_1-ohlc.svg) | ![](assets/image/DOGE-day_2-ohlc.svg) | ![](assets/image/DOGE-day_3-ohlc.svg) | ![](assets/image/DOGE-day_4-ohlc.svg) | ![](assets/image/DOGE-day_5-ohlc.svg) |
+| `NEAR` | ![](assets/image/NEAR-day_1-ohlc.svg) | ![](assets/image/NEAR-day_2-ohlc.svg) | ![](assets/image/NEAR-day_3-ohlc.svg) | ![](assets/image/NEAR-day_4-ohlc.svg) | ![](assets/image/NEAR-day_5-ohlc.svg) |
 
 </details>
 
@@ -90,8 +68,8 @@ python3 ./script/pull-datasets.py
 
 ### Run data preprocessing
 
-You can preprocess all datasets by running the `preprocess.py` script
-located in the `script` directory:
+You can preprocess all datasets by running the `preprocess.py` script located in
+the `script` directory:
 
 #### macOS/Linux
 

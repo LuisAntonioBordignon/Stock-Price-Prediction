@@ -21,8 +21,6 @@ class Script:
     def _process_dataframes(self):
         for df in self._load_dataframes():
             mid_price = (df["best_ask_price"] + df["best_bid_price"]) / 2
-            df['event_time'] = pd.to_datetime(df['event_time'])
-            df = df.set_index('event_time')
 
             yield df.assign(mid_price=mid_price)
 
@@ -35,7 +33,6 @@ class Script:
                     "best_ask_qty",
                     "best_bid_price",
                     "best_bid_qty",
-                    "event_time",
                 ],
             )
 

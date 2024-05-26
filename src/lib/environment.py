@@ -40,10 +40,21 @@ class Environment:
 
                 if day_count == day:
 
-                    data = pd.read_csv(f"data/tickers/{ticker}/{file}", usecols=)
+                    data = pd.read_csv(
+                        f"data/tickers/{ticker}/{file}",
+                        usecols=[
+                            "best_bid_price",
+                            "best_bid_qty",
+                            "best_ask_price",
+                            "best_ask_qty",
+                            "mid_price",
+                        ]
+                    )
 
-                    X = data.drop(columns=["target"])
-                    y = data["target"]
+                    X_train = data[[col for col in data.columns if col != "mid_price"]]
+                    y_train = data["mid_price"]
+
+                    
 
 
 

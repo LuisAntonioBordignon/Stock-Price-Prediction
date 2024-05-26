@@ -1,7 +1,7 @@
 import os
 import zipfile
-from pathlib import Path
 from concurrent import futures
+from pathlib import Path
 
 import requests
 
@@ -68,25 +68,35 @@ if __name__ == "__main__":
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-17.zip",
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-18.zip",
+            f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-19.zip",
+            f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-20.zip",
         ],
         "AXS": [
             f"{BASE_URL}AXSUSD_PERP/AXSUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}AXSUSD_PERP/AXSUSD_PERP-bookTicker-2024-05-17.zip",
             f"{BASE_URL}AXSUSD_PERP/AXSUSD_PERP-bookTicker-2024-05-18.zip",
+            f"{BASE_URL}AXSUSD_PERP/AXSUSD_PERP-bookTicker-2024-05-19.zip",
+            f"{BASE_URL}AXSUSD_PERP/AXSUSD_PERP-bookTicker-2024-05-20.zip",
         ],
         "BTC": [
             f"{BASE_URL}BTCUSD_PERP/BTCUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}BTCUSD_PERP/BTCUSD_PERP-bookTicker-2024-05-17.zip",
             f"{BASE_URL}BTCUSD_PERP/BTCUSD_PERP-bookTicker-2024-05-18.zip",
+            f"{BASE_URL}BTCUSD_PERP/BTCUSD_PERP-bookTicker-2024-05-19.zip",
+            f"{BASE_URL}BTCUSD_PERP/BTCUSD_PERP-bookTicker-2024-05-20.zip",
         ],
         "DOGE": [
             f"{BASE_URL}DOGEUSD_PERP/DOGEUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}DOGEUSD_PERP/DOGEUSD_PERP-bookTicker-2024-05-17.zip",
             f"{BASE_URL}DOGEUSD_PERP/DOGEUSD_PERP-bookTicker-2024-05-18.zip",
+            f"{BASE_URL}DOGEUSD_PERP/DOGEUSD_PERP-bookTicker-2024-05-19.zip",
+            f"{BASE_URL}DOGEUSD_PERP/DOGEUSD_PERP-bookTicker-2024-05-20.zip",
         ],
         "NEAR": [
             f"{BASE_URL}NEARUSD_PERP/NEARUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}NEARUSD_PERP/NEARUSD_PERP-bookTicker-2024-05-17.zip",
             f"{BASE_URL}NEARUSD_PERP/NEARUSD_PERP-bookTicker-2024-05-18.zip",
+            f"{BASE_URL}NEARUSD_PERP/NEARUSD_PERP-bookTicker-2024-05-19.zip",
+            f"{BASE_URL}NEARUSD_PERP/NEARUSD_PERP-bookTicker-2024-05-20.zip",
         ],
     })

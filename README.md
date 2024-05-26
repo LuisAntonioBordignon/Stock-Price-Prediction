@@ -28,7 +28,8 @@ Binance COIN-Margined Futures Book Ticker:
 | `transaction_time` | Timestamp of the transaction                |
 | `event_time`       | Timestamp when the event was recorded       |
 
-Binance. **Historical Market Data**. 2024. https://www.binance.com/en/landing/data.
+Binance. **Historical Market Data**. 2024.
+https://www.binance.com/en/landing/data.
 
 ### Selected coins
 
@@ -37,8 +38,44 @@ Binance. **Historical Market Data**. 2024. https://www.binance.com/en/landing/da
 | `ADA`  | [Cardano](https://www.binance.com/en/price/cardano)                            | 2024-04-01 | 2024-04-07 |
 | `AXS`  | [Axie Infinity](https://www.binance.com/en/price/axie-infinity)                | 2024-04-01 | 2024-04-07 |
 | `BTC`  | [Bitcoin](https://www.binance.com/en/price/bitcoin)                            | 2024-04-01 | 2024-04-07 |
-| `DOG`  | [DOG•GO•TO•THE•MOON](https://www.binance.com/en/price/dog-go-to-the-moon-rune) | 2024-04-01 | 2024-04-07 |
+| `DOGE` | [DOG•GO•TO•THE•MOON](https://www.binance.com/en/price/dog-go-to-the-moon-rune) | 2024-04-01 | 2024-04-07 |
 | `NEAR` | [NEAR Protocol Price](https://www.binance.com/en/price/near-protocol)          | 2024-04-01 | 2024-04-07 |
+
+### Exploratory Analisys
+
+<details>
+
+Cardano:
+
+|                   Feature 1                    |                   Feature 2                    |                     Target                     |
+| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
+| ![OHLC Chart](assets/image/ADA-day_0-ohlc.svg) | ![OHLC Chart](assets/image/ADA-day_1-ohlc.svg) | ![OHLC Chart](assets/image/ADA-day_2-ohlc.svg) |
+
+Axie Infinity:
+
+|                   Feature 1                    |                   Feature 2                    |                     Target                     |
+| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
+| ![OHLC Chart](assets/image/AXS-day_0-ohlc.svg) | ![OHLC Chart](assets/image/AXS-day_1-ohlc.svg) | ![OHLC Chart](assets/image/AXS-day_2-ohlc.svg) |
+
+Bitcoin:
+
+|                   Feature 1                    |                   Feature 2                    |                     Target                     |
+| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
+| ![OHLC Chart](assets/image/BTC-day_0-ohlc.svg) | ![OHLC Chart](assets/image/BTC-day_1-ohlc.svg) | ![OHLC Chart](assets/image/BTC-day_2-ohlc.svg) |
+
+DOG•GO•TO•THE•MOON:
+
+|                    Feature 1                    |                    Feature 2                    |                     Target                      |
+| :---------------------------------------------: | :---------------------------------------------: | :---------------------------------------------: |
+| ![OHLC Chart](assets/image/DOGE-day_0-ohlc.svg) | ![OHLC Chart](assets/image/DOGE-day_1-ohlc.svg) | ![OHLC Chart](assets/image/DOGE-day_2-ohlc.svg) |
+
+NEAR Protocol Price:
+
+|                    Feature 1                    |                    Feature 2                    |                     Target                      |
+| :---------------------------------------------: | :---------------------------------------------: | :---------------------------------------------: |
+| ![OHLC Chart](assets/image/NEAR-day_0-ohlc.svg) | ![OHLC Chart](assets/image/NEAR-day_1-ohlc.svg) | ![OHLC Chart](assets/image/NEAR-day_2-ohlc.svg) |
+
+</details>
 
 ### Download datasets
 
@@ -46,11 +83,24 @@ You can download the necessary datasets by running the `pull-data.py` script
 located in the `script` directory:
 
 #### macOS/Linux
+
 ```sh
-python3 ./script/pull-data.py
+python3 ./script/pull-datasets.py
+```
+
+### Run data preprocessing
+
+You can preprocess all datasets by running the `preprocess.py` script
+located in the `script` directory:
+
+#### macOS/Linux
+
+```sh
+python3 ./script/preprocess.py
 ```
 
 #### Windows
+
 ```ps
 python .\script\pull-data.py
 ```
@@ -86,18 +136,17 @@ data are prohibited:
    (including through advertising or referral fees) market data obtained from
    Binance.
 
-> [!CAUTION]
-> You hereby understand and agree that Binance will not be liable for
+> [!CAUTION] You hereby understand and agree that Binance will not be liable for
 > any losses or damages arising out of or relating to:
 >
 > - (a) any inaccuracy, defect, or omission of digital assets price data,
 > - (b) any error or delay in the transmission of such data,
 > - (c) interruption in any such data,
 > - (d) regular or unscheduled maintenance carried out by Binance and service
->   interruption and change resulting from such maintenance,
+  > interruption and change resulting from such maintenance,
 > - (e) any damages incurred by other users’ actions, omissions or violation of
-> these terms,
+  > these terms,
 > - (f) any damage caused by illegal actions of other third parties or actions
->   without authorized by Binance; and
+  > without authorized by Binance; and
 > - (g) other exemptions mentioned in disclaimers and platform rules issued by
->   Binance.
+  > Binance.

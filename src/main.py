@@ -3,8 +3,8 @@ import os
 from lib.environment import Environment
 from models import *
 
-model = MLP()
 
+model = MLP()
 env = Environment(model)
 
-env.fitting()
+env.fit()

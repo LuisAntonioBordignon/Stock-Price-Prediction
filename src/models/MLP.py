@@ -2,28 +2,28 @@ import os
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
+import pandas as pd
 from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.models import Sequential
-import pandas as pd
+
 
 class MLP:
-
-    def __init__(self):
-        
+    def __init__(self, epochs: int = 10, batch_size: int = 32):
+        self.epochs = epochs
+        self.batch_size = batch_size
         self.model = Sequential()
+
         self.model.add(Input(shape=(4,)))
         self.model.add(Dense(8, activation="relu"))
         self.model.add(Dense(8, activation="relu"))
         self.model.add(Dense(3, activation="softmax"))
         self.model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
-    def fitting(self, X_train: pd.DataFrame, y_train: pd.DataFrame) :
-        
+    def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
         return self.model.fit(
-            X_train, 
-            y_train, 
-            epochs=10, 
-            batch_size=32, 
-            verbose=1
+            X_train,
+            y_train,
+            epochs=self.epochs,
+            batch_size=self.batch_size,
+            verbose=1,
         )
-    

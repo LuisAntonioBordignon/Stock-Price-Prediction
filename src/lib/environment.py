@@ -1,55 +1,27 @@
 import os
 import timeit
+from pathlib import Path
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 from tensorflow.keras.models import clone_model
 
-from models.MLP import *
 from models.LSTM import *
+from models.MLP import *
 
 
 class Environment:
+    min_scale = 0.0
+    max_scale = 1.0
 
-    min_scale = 0
-    max_scale = 1
-
-    def __init__(self, base_model: classmethod):
-
-        self.base_model = base_model
-        self.name = base_model.__class__.__name__
-
+    def __init__(self, env: any):
+        self.env = env
+        self.name = env.__class__.__name__
         self.start_timer = timeit.default_timer()
 
-    def fitting(self):
+    def fit(self, ticker: str = "**", target: str = "mid_price", data_dir: Path = Path.cwd() / "data" / "tickers"):
+        for filename in data_dir.glob(f"{ticker}/*.parquet"):
+            name = filename.parent.name
+            X_train = pd.read_parquet(filename)
+            y_train = X_train.drop(columns=[target])
 
-        for ticker in os.listdir("data/tickers"):
-
-            ticker_model = self.base_model
-
-            for day in os.listdir(f"data/tickers/{ticker}"):
-
-                self._load_data(ticker, day)
-
-
-    def _load_data(self, ticker: str, day: int):
-
-        day_count = 1
-        for file in os.listdir(f"data/tickers/{ticker}"):
-
-            if file.endswith(".csv"):
-
-                if day_count == day:
-
-                    data = pd.read_csv(
-                        f"data/tickers/{ticker}/{file}",
-                        usecols=[
-                            "best_bid_price",
-                            "best_bid_qty",
-                            "best_ask_price",
-                            "best_ask_qty",
-                            "mid_price",
-                        ]
-                    )
-
-                    X_train = data[[col for col in data.columns if col != "mid_price"]]
-                    y_train = data["mid_price"]
+            self.env.fit(X_train, y_train)

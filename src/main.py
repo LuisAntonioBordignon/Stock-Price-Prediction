@@ -5,6 +5,6 @@ from models import *
 
 model = MLP()
 
-env = Environment(model, "ADA")
+env = Environment(model)
 
 env.fitting()

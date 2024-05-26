@@ -18,10 +18,10 @@ class Environment:
 
     def fitting(self):
 
-        for ticker in os.listdir("data"):
-            for day in range(0, 6):
+        for ticker in os.listdir("data/tickers"):
+            for day in os.listdir(f"data/tickers/{ticker}"):
 
-                day += 1
+                print(day)
 
        
 

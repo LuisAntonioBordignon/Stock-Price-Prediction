@@ -55,10 +55,17 @@ https://www.binance.com/en/landing/data.
 
 </details>
 
+## Getting started
+First, install all dependencies and setup the working environment libraries:
+
+```sh
+pip install -e .
+```
+
 ### Download datasets
 
 You can download the necessary datasets by running the `pull-data.py` script
-located in the `script` directory:
+located in the `script/` directory or simply running `pull-datasets` on the terminal:
 
 #### macOS/Linux
 
@@ -69,7 +76,7 @@ python3 ./script/pull-datasets.py
 ### Run data preprocessing
 
 You can preprocess all datasets by running the `preprocess.py` script located in
-the `script` directory:
+the `script/` directory or simply running `preprocess` on the terminal:
 
 #### macOS/Linux
 

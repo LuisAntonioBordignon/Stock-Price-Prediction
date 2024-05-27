@@ -1,4 +1,3 @@
-import os
 import zipfile
 from concurrent import futures
 from pathlib import Path
@@ -6,64 +5,10 @@ from pathlib import Path
 import requests
 
 
-class Script:
-    @staticmethod
-    def pull_datasets(datasets, basedir: Path = Path.cwd() / "data" / "tickers"):
-        taks = Script._make_tasks(datasets, basedir)
-
-        return Script._execute_tasks(taks)
-
-    @staticmethod
-    def _make_tasks(sources, basedir: Path):
-        tasks = []
-
-        for idx, urls in sources.items():
-            extract_to = basedir / idx
-
-            os.makedirs(extract_to, exist_ok=True)
-
-            for url in urls:
-                tasks.append((url, extract_to))
-
-        return tasks
-
-    @staticmethod
-    def _execute_tasks(tasks):
-        results = []
-
-        with futures.ThreadPoolExecutor() as executor:
-            pool_tasks = [
-                executor.submit(Script._download_and_extract_zip, url, extract_to)
-                for url, extract_to in tasks
-            ]
-
-            for future in futures.as_completed(pool_tasks):
-                results.append(future.result())
-
-        return results
-
-    def _download_and_extract_zip(url: str, extract_to: Path):
-        local_zip_filename = extract_to / Path(url).name
-
-        try:
-            response = requests.get(url)
-
-            with open(local_zip_filename, "wb") as local_zip_file:
-                local_zip_file.write(response.content)
-
-            with zipfile.ZipFile(local_zip_filename, "r") as zip_source:
-                zip_source.extractall(extract_to)
-
-            local_zip_filename.unlink()
-            print(f"Successfully processed {url}")
-        except Exception as error:
-            print(f"Failed to process {url}: {error}")
-
-
-if __name__ == "__main__":
+def __main__():
     BASE_URL = "https://data.binance.vision/data/futures/cm/daily/bookTicker/"
 
-    Script.pull_datasets({
+    execute({
         "ADA": [
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-16.zip",
             f"{BASE_URL}ADAUSD_PERP/ADAUSD_PERP-bookTicker-2024-05-17.zip",
@@ -100,3 +45,56 @@ if __name__ == "__main__":
             f"{BASE_URL}NEARUSD_PERP/NEARUSD_PERP-bookTicker-2024-05-20.zip",
         ],
     })
+
+def execute(datasets: dict[str, list[str]], basedir: Path = Path.cwd() / "data" / "tickers"):
+    taks = _make_tasks(datasets, basedir)
+
+    return _execute_tasks(taks)
+
+def _make_tasks(sources: dict[str, list[str]], basedir: Path):
+    tasks = []
+
+    for idx, urls in sources.items():
+        extract_to = basedir / idx
+
+        extract_to.mkdir(parents=True, exist_ok=True)
+
+        for url in urls:
+            tasks.append((url, extract_to))
+
+    return tasks
+
+def _execute_tasks(tasks):
+    results = []
+
+    with futures.ThreadPoolExecutor() as executor:
+        pool_tasks = [
+            executor.submit(_download_and_extract_zip, url, extract_to)
+            for url, extract_to in tasks
+        ]
+
+        for future in futures.as_completed(pool_tasks):
+            results.append(future.result())
+
+    return results
+
+def _download_and_extract_zip(url: str, extract_to: Path):
+    local_zip_filename = extract_to / Path(url).name
+
+    try:
+        response = requests.get(url)
+
+        with open(local_zip_filename, "wb") as local_zip_file:
+            local_zip_file.write(response.content)
+
+        with zipfile.ZipFile(local_zip_filename, "r") as zip_source:
+            zip_source.extractall(extract_to)
+
+        local_zip_filename.unlink()
+        print(f"Successfully processed {url}")
+    except Exception as error:
+        print(f"Failed to process {url}: {error}")
+
+
+if __name__ == "__main__":
+    __main__()

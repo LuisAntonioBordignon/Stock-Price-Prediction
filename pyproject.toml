@@ -1,0 +1,36 @@
+[project]
+name = "stock-price-prediction"
+description = "This project aims to compare the performance of 2 different nature machine learning models performance in predicting stock prices."
+authors = [
+  {name = "Luís Antônio Bordignon"},
+  {name = "Luciano Felix"},
+]
+license = {file = "LICENSE"}
+readme = "README.md"
+version = "0.0.1"
+requires-python = ">= 3.8"
+dependencies = [
+    "ipykernel",
+    "matplotlib",
+    "mplfinance",
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "requests",
+    "scikit-learn",
+]
+
+[project.urls]
+Homepage = "https://github.com/LuisAntonioBordignon/Stock-Price-Prediction"
+Repository = "https://github.com/LuisAntonioBordignon/Stock-Price-Prediction.git"
+
+[project.scripts]
+pull-datasets = "scripts.pull_datasets:__main__"
+preprocess = "scripts.preprocess:__main__"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]

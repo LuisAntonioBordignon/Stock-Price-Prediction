@@ -1,8 +1,0 @@
-ipykernel
-matplotlib
-mplfinance
-numpy
-pandas
-pyarrow
-requests
-scikit-learn

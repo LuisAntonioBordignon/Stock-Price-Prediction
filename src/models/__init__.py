@@ -1,2 +1,2 @@
-from models.LSTM import LSTM
-from models.MLP import MLP
+from src.models.LSTM import LSTM
+from src.models.MLP import MLP

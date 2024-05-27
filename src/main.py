@@ -1,7 +1,5 @@
-import os
-
 from lib.environment import Environment
-from models import *
+from src.models import *
 
 
 model = MLP()

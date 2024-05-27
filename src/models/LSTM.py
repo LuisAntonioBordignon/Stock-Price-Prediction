@@ -7,7 +7,7 @@ from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.models import Sequential
 
 
-class MLP:
+class LSTM:
     def __init__(self, epochs: int = 10, batch_size: int = 32):
         self.epochs = epochs
         self.batch_size = batch_size

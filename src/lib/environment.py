@@ -5,8 +5,8 @@ from pathlib import Path
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 from tensorflow.keras.models import clone_model
 
-from models.LSTM import *
-from models.MLP import *
+from src.models.LSTM import *
+from src.models.MLP import *
 
 
 class Environment:

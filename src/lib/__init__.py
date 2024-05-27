@@ -1,1 +1,1 @@
-from lib import environment
+from src.lib.environment import Environment

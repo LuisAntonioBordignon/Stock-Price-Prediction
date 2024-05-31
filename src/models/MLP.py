@@ -8,9 +8,8 @@ from tensorflow.keras.models import Sequential # type: ignore
 from tensorflow.keras.callbacks import EarlyStopping # type: ignore
 
 
-
 class MLP:
-    def __init__(self, epochs: int = 10, batch_size: int = 256):
+    def __init__(self, epochs: int = 2, batch_size: int = 256):
         self.epochs = epochs
         self.batch_size = batch_size
         self.model = Sequential()

@@ -13,5 +13,5 @@ class LSTM:
         self.batch_size = batch_size
         self.model = None
 
-    def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
+    def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
         return None

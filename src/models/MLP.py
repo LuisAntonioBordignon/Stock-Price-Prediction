@@ -22,7 +22,7 @@ class MLP:
 
         self.model.compile(loss="mean_squared_error", optimizer="adam", metrics=["mean_squared_error"])
 
-    def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
+    def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
             early_stopping = EarlyStopping(monitor="val_loss", patience=2)
 
             return self.model.fit(

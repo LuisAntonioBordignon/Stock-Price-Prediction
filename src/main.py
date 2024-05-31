@@ -5,7 +5,7 @@ import pandas as pd
 from src.models import *
 
 
-TRAINING_DAYS = 5
+TRAINING_DAYS = 4
 tickers = list(Path("data/tickers/").glob("**/"))[1:]
 
 for ticker in tickers:
@@ -32,14 +32,14 @@ for ticker in tickers:
         )
         y_train = pd.read_parquet(ticker, columns=["mid_price"])
 
-        X_train = X_train.iloc[:int(len(X_train)/4), :]
-        y_train = y_train.iloc[:int(len(y_train)/4), :]
+        X_train = X_train.iloc[:100, :]
+        y_train = y_train.iloc[:100, :]
 
         history = model.fit(X_train, y_train)
         histories.append(history)
 
     # Fazer a previsão aqui - modelo treinado, vamos prever
-    y_pred = 
+    y_pred = model.predict(name)
 
     histories = pd.concat([pd.DataFrame(history.history) for history in histories])
 
@@ -47,3 +47,4 @@ for ticker in tickers:
         f"data/histories/{type(model).__name__}-{name}.parquet"
     )
     model.model.save(f"data/models/{type(model).__name__}-{name}.keras")
+    pd.DataFrame(y_pred).to_parquet(f"data/predictions/{type(model).__name__}-{name}.parquet")

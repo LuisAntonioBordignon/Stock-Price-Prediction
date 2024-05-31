@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import pickle
 from sklearn.preprocessing import StandardScaler
 
 
@@ -12,20 +13,25 @@ def __main__():
 
 def execute(ticker: str, basedir: Path = Path.cwd() / "data"):
     data_dir = basedir / "tickers" / ticker
-    dataframes = _process_dataframes(data_dir)
+    dataframes = _process_dataframes(data_dir, ticker)
 
     for index, df in enumerate(dataframes, 1):
         filename = data_dir / f"{ticker}-day_{index}.parquet"
 
         df.to_parquet(filename)
 
-def _process_dataframes(data_dir: Path):
+def _process_dataframes(data_dir: Path, ticker: str):
     for df in _load_dataframes(data_dir):
         df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
         df["mid_price"] = (df["best_ask_price"] + df["best_bid_price"]) / 2
 
         scaler = StandardScaler()
         df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+
+        # ----------------
+        with open(f"data/scalers/{ticker}-{}", "wb") as f:
+            pickle.dump(scaler, f)
+        # -----------------
 
         yield df
 

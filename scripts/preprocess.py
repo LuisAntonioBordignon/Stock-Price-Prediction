@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 
 def __main__():
@@ -23,7 +24,10 @@ def _process_dataframes(data_dir: Path):
         df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
         df["mid_price"] = (df["best_ask_price"] + df["best_bid_price"]) / 2
 
-        yield df.set_index("event_time") 
+        scaler = StandardScaler()
+        df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+
+        yield df
 
 def _load_dataframes(data_dir: Path):
     for data_file in data_dir.glob("*.csv"):
@@ -34,7 +38,6 @@ def _load_dataframes(data_dir: Path):
                 "best_ask_qty",
                 "best_bid_price",
                 "best_bid_qty",
-                "event_time",
             ],
         )
 

@@ -32,11 +32,14 @@ for ticker in tickers:
         )
         y_train = pd.read_parquet(ticker, columns=["mid_price"])
 
-        X_train = X_train.iloc[:100, :]
-        y_train = y_train.iloc[:100, :]
+        X_train = X_train.iloc[:int(len(X_train)/4), :]
+        y_train = y_train.iloc[:int(len(y_train)/4), :]
 
         history = model.fit(X_train, y_train)
         histories.append(history)
+
+    # Fazer a previsão aqui - modelo treinado, vamos prever
+    y_pred = 
 
     histories = pd.concat([pd.DataFrame(history.history) for history in histories])
 

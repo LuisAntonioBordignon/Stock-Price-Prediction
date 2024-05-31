@@ -9,7 +9,7 @@ from tensorflow.keras.callbacks import EarlyStopping # type: ignore
 
 
 class MLP:
-    def __init__(self, epochs: int = 1, batch_size: int = 256):
+    def __init__(self, epochs: int = 5, batch_size: int = 256):
         self.epochs = epochs
         self.batch_size = batch_size
         self.model = Sequential()

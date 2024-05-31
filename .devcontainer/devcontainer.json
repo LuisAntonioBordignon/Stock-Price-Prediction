@@ -1,7 +1,7 @@
 {
     "name": "TensorFlow GPU Jupyter",
     "image": "tensorflow/tensorflow:latest-gpu-jupyter",
-    "postCreateCommand": "pip install -r requirements.txt",
+    "postCreateCommand": "pip install -e .",
     "customizations": {
         "vscode": {
             "extensions": [

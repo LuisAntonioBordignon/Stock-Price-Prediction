@@ -12,7 +12,7 @@ histories = {}
 for ticker in tickers:
     name = ticker.name
     histories[name] = []
-    model = MLP(batch_size=2)
+    model = MLP()
     datasets = ticker.glob(f"*.parquet") 
 
     for day, ticker in enumerate(tickers, 1):
@@ -28,5 +28,8 @@ for ticker in tickers:
         history = model.fit(X_train, y_train)
 
         histories[name].append(history)
+
+    print(f"Saving model {name}...")
+    model.model.save(f"data/models/{name}.keras")
 
 print(f"histories: {histories}")

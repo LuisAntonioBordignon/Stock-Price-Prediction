@@ -9,7 +9,7 @@ from tensorflow.keras.callbacks import EarlyStopping # type: ignore
 
 
 class MLP:
-    def __init__(self, epochs: int = 5, batch_size: int = 256):
+    def __init__(self, epochs: int = 50, batch_size: int = 256):
         self.epochs = epochs
         self.batch_size = batch_size
         self.model = Sequential()
@@ -23,7 +23,7 @@ class MLP:
         self.model.compile(loss="mean_squared_error", optimizer="adam", metrics=["mean_squared_error"])
 
     def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
-            early_stopping = EarlyStopping(monitor="val_loss", patience=2)
+            early_stopping = EarlyStopping(monitor="val_loss", patience=2) # Esse early stopping faz sentido?
 
             return self.model.fit(
                 X_train,

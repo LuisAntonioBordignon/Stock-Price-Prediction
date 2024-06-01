@@ -1,42 +1,44 @@
 import pandas as pd
 import numpy as np
 
-"""
-https://neptune.ai/blog/performance-metrics-in-machine-learning-complete-guide
-"""
 
 class Metrics:
+    """
+    Performance Metrics in Machine Learning
+    From: https://neptune.ai/blog/performance-metrics-in-machine-learning-complete-guide
+    """
 
-    def __init__(self):
-        pass
-
-    def MSE(self, y_true: pd.DataFrame, y_pred: pd.DataFrame):
+    @staticmethod
+    def MSE(y_true: pd.DataFrame, y_pred: pd.DataFrame):
         """Mean Squared Error"""
-        MSE = np.mean((y_true - y_pred) ** 2)
+        return np.mean(np.square(y_true - y_pred))
 
-        return MSE
-    
-    def MAE(self, y_true: pd.DataFrame, y_pred: pd.DataFrame):
+    @staticmethod
+    def MAE(y_true: pd.DataFrame, y_pred: pd.DataFrame):
         """Mean Absolute Error"""
-        MAE = np.mean(np.abs(y_true - y_pred))
+        return np.mean(np.abs(y_true - y_pred))
 
-        return MAE
-
-    def RMSE(self, y_true: pd.DataFrame, y_pred: pd.DataFrame):
+    @staticmethod
+    def RMSE(y_true: pd.DataFrame, y_pred: pd.DataFrame):
         """Root Mean Squared Error"""
-        RMSE = np.sqrt(np.mean((y_true - y_pred) ** 2))
-
-        return RMSE
+        return np.sqrt(Metrics.MSE(y_true, y_pred))
     
-    def MAPE(self, y_true: pd.DataFrame, y_pred: pd.DataFrame):
+    @staticmethod
+    def MAPE(y_true: pd.DataFrame, y_pred: pd.DataFrame):
         """Mean Absolute Percentage Error"""
-        MAPE = np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+        return np.mean(np.abs((y_true - y_pred) / y_true))
 
-        return MAPE
-    
-    def R2(self, y_true: pd.DataFrame, y_pred: pd.DataFrame):
+    @staticmethod
+    def R2(y_true: pd.DataFrame, y_pred: pd.DataFrame):
         """R-squared"""
-        R2 = 1 - np.sum((y_true - y_pred) ** 2) / np.sum((y_true - np.mean(y_true)) ** 2)
+        SE_line = np.sum(np.square(y_true - y_pred))
+        SE_mean = np.sum(np.square(y_true - np.mean(y_true)))
 
-        return R2
+        return 1 - SE_line / SE_mean
 
+    @staticmethod
+    def ddjusted_R2(y_true: pd.DataFrame, y_pred: pd.DataFrame):
+        """Adjusted R-squared"""
+        n, k = y_true.shape
+
+        return 1 - ((n - 1) / (n - k - 1)) * (1 - Metrics.R2(y_true, y_pred))

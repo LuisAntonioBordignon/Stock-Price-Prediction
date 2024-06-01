@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
@@ -25,7 +26,7 @@ class MLP:
             loss="mean_squared_error", optimizer="adam", metrics=["mean_squared_error"]
         )
 
-    def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
+    def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
         early_stopping = EarlyStopping(
             monitor="val_loss", patience=2
         )  # Esse early stopping faz sentido?
@@ -40,12 +41,11 @@ class MLP:
             validation_split=0.2,
         )
 
-    def predict(self, ticker: str):
-
+    def predict(self, filename: Path):
         print(f"Bora prever!")
 
         X_test = pd.read_parquet(
-            f"data/tickers/{ticker}/{ticker}-day_5.parquet",
+            filename,
             columns=[
                 "best_bid_price",
                 "best_ask_price",
@@ -54,4 +54,4 @@ class MLP:
             ],
         ).iloc[:100, :]
 
-        return self.model.predict(X_test)
+        return pd.DataFrame(self.model.predict(X_test))

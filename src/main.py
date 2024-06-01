@@ -12,17 +12,20 @@ for ticker in tickers:
     model = MLP()
     name = ticker.name
     histories = []
-
-    datasets = ticker.glob(f"*.parquet")
+    datasets = ticker.glob(f"*-raw.parquet")
+    y_pred = None
 
     print(f"Estamos no ticker {name}!")
 
-    for day in range(1, TRAINING_DAYS + 1):
+    for day, filename in enumerate(datasets, 1):
+        if day > TRAINING_DAYS:
+            y_pred = model.predict(filename)
+            break
 
         print(f"Dia {day} no ticker {name}!")
 
         X_train = pd.read_parquet(
-            ticker,
+            filename,
             columns=[
                 "best_bid_price",
                 "best_ask_price",
@@ -30,7 +33,7 @@ for ticker in tickers:
                 "best_ask_qty",
             ],
         )
-        y_train = pd.read_parquet(ticker, columns=["mid_price"])
+        y_train = pd.read_parquet(filename, columns=["mid_price"])
 
         X_train = X_train.iloc[:100, :]
         y_train = y_train.iloc[:100, :]
@@ -38,13 +41,11 @@ for ticker in tickers:
         history = model.fit(X_train, y_train)
         histories.append(history)
 
-    # Fazer a previsão aqui - modelo treinado, vamos prever
-    y_pred = model.predict(name)
-
     histories = pd.concat([pd.DataFrame(history.history) for history in histories])
+    model_name = type(model).__name__
 
     histories.to_parquet(
-        f"data/histories/{type(model).__name__}-{name}.parquet"
+        f"data/histories/{model_name}-{name}.parquet"
     )
-    model.model.save(f"data/models/{type(model).__name__}-{name}.keras")
-    pd.DataFrame(y_pred).to_parquet(f"data/predictions/{type(model).__name__}-{name}.parquet")
+    model.model.save(f"data/models/{model_name}-{name}.keras")
+    pd.DataFrame(y_pred).to_parquet(Path("data/predictions") / f"{model_name}-{name}.parquet")

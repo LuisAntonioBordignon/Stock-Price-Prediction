@@ -13,33 +13,28 @@ def __main__():
 
 def execute(ticker: str, basedir: Path = Path.cwd() / "data"):
     data_dir = basedir / "tickers" / ticker
-    dataframes = _process_dataframes(data_dir, ticker)
+    dataframes = _process_dataframes(data_dir)
 
     for index, df in enumerate(dataframes, 1):
-        filename = data_dir / f"{ticker}-day_{index}.parquet"
+        df.to_parquet(data_dir / f"{ticker}-day_{index}-raw.parquet", )
 
-        df.to_parquet(filename)
+        df = _normalize_dataframe(df)
 
-def _process_dataframes(data_dir: Path, ticker: str):
+        df.to_parquet(data_dir / f"{ticker}-day_{index}-normalized.parquet")
+
+def _process_dataframes(data_dir: Path):
     for df in _load_dataframes(data_dir):
         df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
         df["mid_price"] = (df["best_ask_price"] + df["best_bid_price"]) / 2
 
-        scaler = StandardScaler()
-        df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
-
-        # ----------------
-        with open(f"data/scalers/{ticker}-{}", "wb") as f:
-            pickle.dump(scaler, f)
-        # -----------------
-
-        yield df
+        yield df.set_index("event_time") 
 
 def _load_dataframes(data_dir: Path):
     for data_file in data_dir.glob("*.csv"):
         yield pd.read_csv(
             data_file,
             usecols=[
+                "event_time",
                 "best_ask_price",
                 "best_ask_qty",
                 "best_bid_price",
@@ -47,7 +42,16 @@ def _load_dataframes(data_dir: Path):
             ],
         )
 
-        data_file.unlink()
+        # data_file.unlink()
+
+def _normalize_dataframe(df: pd.DataFrame):
+    scaler = StandardScaler()
+
+    return pd.DataFrame.from_records(
+        data=scaler.fit_transform(df.values),
+        index=df.index,
+        columns=df.columns
+    )
 
 
 if __name__ == "__main__":

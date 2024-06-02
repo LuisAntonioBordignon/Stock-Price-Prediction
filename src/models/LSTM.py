@@ -6,6 +6,7 @@ from tensorflow.keras.models import Sequential # type: ignore
 from tensorflow.keras.callbacks import EarlyStopping # type: ignore
 import pandas as pd
 
+
 class LSTM:
     def __init__(self, epochs: int = 1, batch_size: int = 256):
         self.epochs = epochs

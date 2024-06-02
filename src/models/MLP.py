@@ -11,16 +11,16 @@ from tensorflow.keras.callbacks import EarlyStopping  # type: ignore
 
 
 class MLP:
-    def __init__(self, epochs: int = 1, batch_size: int = 256):
+    def __init__(self, n_features: int, epochs: int = 32, batch_size: int = 1024):
         self.epochs = epochs
         self.batch_size = batch_size
         self.model = Sequential()
 
-        self.model.add(Input(shape=(4,)))
+        self.model.add(Input(shape=(n_features, )))
         self.model.add(Dense(512, activation="elu"))
         self.model.add(Dense(512, activation="elu"))
         self.model.add(Dense(32, activation="elu"))
-        self.model.add(Dense(10))
+        self.model.add(Dense(1))
 
         self.model.compile(
             loss="mean_squared_error", optimizer="adam", metrics=["mean_squared_error"]
@@ -41,17 +41,9 @@ class MLP:
             validation_split=0.2,
         )
 
-    def predict(self, filename: Path):
-        print(f"Bora prever!")
-
-        X_test = pd.read_parquet(
-            filename,
-            columns=[
-                "best_bid_price",
-                "best_ask_price",
-                "best_bid_qty",
-                "best_ask_qty",
-            ],
-        ).iloc[:100, :]
-
-        return pd.DataFrame(self.model.predict(X_test))
+    def predict(self, X_test: pd.DataFrame):
+        return pd.DataFrame.from_records(
+            data=self.model.predict(X_test),
+            index=X_test.index,
+            columns="mid_price"
+        )

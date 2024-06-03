@@ -10,10 +10,10 @@ tickers = list(Path("data/tickers/").glob("**/"))[1:]
 # tickers = [Path("data/tickers/BTC") ]
 
 for ticker in tickers:
-    model = MLP(4*4 + 1)
+    model = LSTM()
     name = ticker.name
     histories = []
-    datasets = ticker.glob(f"*-raw.parquet")
+    datasets = ticker.glob(f"*-normalized.parquet")
     y_pred = None
 
     print(f"Estamos no ticker {name}!")

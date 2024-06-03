@@ -59,14 +59,20 @@ def _load_dataframes(data_dir: Path):
             ],
         )
 
-def _normalize_dataframe(df: pd.DataFrame):
+def _normalize_dataframe(df: pd.DataFrame, day: int, ticker: str):
     scaler = StandardScaler()
 
-    return pd.DataFrame.from_records(
+    data_norm = pd.DataFrame.from_records(
         data=scaler.fit_transform(df.values),
         index=df.index,
         columns=df.columns
     )
+
+    # salva scaler
+    with open(f"{ticker}-{day}-scaler.pkl", "wb") as f:
+        pickle.dump(scaler, f)
+
+    return data_norm
 
 
 if __name__ == "__main__":

@@ -16,6 +16,7 @@ class LSTM:
         self.model.add(Input(shape=(1, n_features)))
         self.model.add(LSTM_layer(512, activation="elu", return_sequences=True))
         self.model.add(LSTM_layer(512, activation="elu", return_sequences=True))
+        self.model.add(LSTM_layer(32, activation="elu", return_sequences=True))
         self.model.add(LSTM_layer(4, activation="elu"))
         self.model.compile(
             optimizer="adam",

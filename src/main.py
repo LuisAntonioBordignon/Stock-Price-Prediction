@@ -10,7 +10,7 @@ tickers = list(Path("data/tickers/").glob("**/"))[1:]
 # tickers = [Path("data/tickers/BTC") ]
 
 for ticker in tickers:
-    model = MLP(TRAINING_DAYS)
+    model = MLP(4*4 + 1)
     name = ticker.name
     histories = []
     datasets = ticker.glob(f"*-raw.parquet")
@@ -21,29 +21,14 @@ for ticker in tickers:
     for day, filename in enumerate(datasets, 1):
         print(f"Dia {day} no ticker {name}!")
 
-        X_train = pd.read_parquet(
-            filename,
-            columns=[
-                "best_bid_price",
-                "best_ask_price",
-                "best_bid_qty",
-                "best_ask_qty",
-            ],
-        )
-
-        X_train = X_train.iloc[::100, :]
+        df = pd.read_parquet(filename)
+        y_train = df["mid_price"]
+        X_train = df.drop(columns=["mid_price"], level="features")
 
         if day > TRAINING_DAYS:
-            y_pred = pd.DataFrame.from_records(
-                data=model.model.predict(X_train),
-                index=X_train.index,
-            )
+            y_pred = data=model.predict(X_train)
             break
         else:
-            y_train = pd.read_parquet(filename, columns=["mid_price"])
-
-            y_train = y_train.iloc[::100, :]
-
             history = model.fit(X_train, y_train)
             histories.append(history)
 

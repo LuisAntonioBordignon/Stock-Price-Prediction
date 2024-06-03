@@ -1,8 +1,6 @@
 import os
-from pathlib import Path
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-
 
 import pandas as pd
 from tensorflow.keras.layers import Dense, Input  # type: ignore
@@ -11,7 +9,7 @@ from tensorflow.keras.callbacks import EarlyStopping  # type: ignore
 
 
 class MLP:
-    def __init__(self, n_features: int, epochs: int = 32, batch_size: int = 1024):
+    def __init__(self, n_features: int, epochs: int = 5, batch_size: int = 4):
         self.epochs = epochs
         self.batch_size = batch_size
         self.model = Sequential()
@@ -20,16 +18,17 @@ class MLP:
         self.model.add(Dense(512, activation="elu"))
         self.model.add(Dense(512, activation="elu"))
         self.model.add(Dense(32, activation="elu"))
-        self.model.add(Dense(1))
+        self.model.add(Dense(4))
 
         self.model.compile(
             loss="mean_squared_error", optimizer="adam", metrics=["mean_squared_error"]
         )
 
     def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
-        early_stopping = EarlyStopping(
-            monitor="val_loss", patience=2
-        )  # Esse early stopping faz sentido?
+        # early_stopping = EarlyStopping(
+        #     monitor="val_loss",
+        #     patience=2,
+        # )
 
         return self.model.fit(
             X_train,
@@ -37,7 +36,7 @@ class MLP:
             epochs=self.epochs,
             batch_size=self.batch_size,
             verbose=0,
-            callbacks=[early_stopping],
+            # callbacks=[early_stopping],
             validation_split=0.2,
         )
 
@@ -45,5 +44,5 @@ class MLP:
         return pd.DataFrame.from_records(
             data=self.model.predict(X_test),
             index=X_test.index,
-            columns="mid_price"
+            columns=("Open", "High", "Low", "Close")
         )

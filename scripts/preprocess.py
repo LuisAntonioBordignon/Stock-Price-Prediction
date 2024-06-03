@@ -22,12 +22,33 @@ def execute(ticker: str, basedir: Path = Path.cwd() / "data"):
 
         df.to_parquet(data_dir / f"{ticker}-day_{index}-normalized.parquet")
 
+def to_ohlc(col: pd.Series, pattern: str = "1h"):
+    df = col.resample(pattern).agg(["first", "max", "min", "last", "count"])
+    df.columns = ["Open", "High", "Low", "Close", "Volume"]
+
+    return df
+
 def _process_dataframes(data_dir: Path):
     for df in _load_dataframes(data_dir):
         df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
         df["mid_price"] = (df["best_ask_price"] + df["best_bid_price"]) / 2
 
-        yield df.set_index("event_time") 
+        df = df.set_index("event_time")
+        columns = df.columns
+        df = df.resample("1s").agg(["first", "max", "min", "last", "count"]).dropna()
+        df.columns = pd.MultiIndex.from_tuples(
+            tuples=tuple(zip(
+                columns.repeat(5),
+                ["Open", "High", "Low", "Close", "Volume"] * df.columns.shape[0]
+            )),
+            names=["features", "attributes"],
+        )
+        volumes = df.filter(like="Volume")
+        quantity = volumes.iloc[:, 0]
+        df = df.drop(volumes.columns, axis="columns")
+        df["Trades"] = quantity
+
+        yield df
 
 def _load_dataframes(data_dir: Path):
     for data_file in data_dir.glob("*.csv"):

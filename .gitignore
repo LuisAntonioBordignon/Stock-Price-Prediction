@@ -159,5 +159,4 @@ cython_debug/
 #.idea/
 data/tickers
 data/models
-data/predictions
 tests/tests.ipynb

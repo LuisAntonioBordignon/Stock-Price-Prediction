@@ -25,24 +25,18 @@ class MLP:
             metrics=["mean_squared_error"],
         )
 
-    def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
-        # early_stopping = EarlyStopping(
-        #     monitor="val_loss",
-        #     patience=2,
-        # )
-
+    def fit(self, X: pd.DataFrame, y: pd.DataFrame):
         return self.model.fit(
-            X_train,
-            y_train,
+            X,
+            y,
             epochs=self.epochs,
             batch_size=self.batch_size,
             verbose=0,
-            # callbacks=[early_stopping],
             validation_split=0.2,
         )
 
-    def predict(self, X_test: pd.DataFrame):
+    def predict(self, X: pd.DataFrame):
         return pd.DataFrame.from_records(
-            data=self.model.predict(X_test),
-            index=X_test.index
+            data=self.model.predict(X),
+            index=X.index
         )

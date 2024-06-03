@@ -33,7 +33,7 @@ for ticker in tickers:
 
         X_train = X_train.iloc[::100, :]
 
-        if day > TRAINING_DAYS:
+        if day > TRAINING_DAYS: # If this, it's test day!
             y_pred = pd.DataFrame.from_records(
                 data=model.model.predict(X_train),
                 index=X_train.index,

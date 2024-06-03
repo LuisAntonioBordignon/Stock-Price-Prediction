@@ -23,7 +23,7 @@ for ticker in tickers:
 
         df = pd.read_parquet(filename)
         y_train = df["mid_price"]
-        X_train = df.drop(columns=["mid_price"], level="features")
+        X_train = df.drop(columns=["mid_price"])
 
         if day > TRAINING_DAYS:
             y_pred = data=model.predict(X_train)

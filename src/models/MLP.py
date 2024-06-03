@@ -9,7 +9,7 @@ from tensorflow.keras.callbacks import EarlyStopping  # type: ignore
 
 
 class MLP:
-    def __init__(self, n_features: int = 17, epochs: int = 5, batch_size: int = 4):
+    def __init__(self, n_features: int = 4, epochs: int = 5, batch_size: int = 4):
         self.epochs = epochs
         self.batch_size = batch_size
         self.model = Sequential()
@@ -18,10 +18,11 @@ class MLP:
         self.model.add(Dense(512, activation="elu"))
         self.model.add(Dense(512, activation="elu"))
         self.model.add(Dense(32, activation="elu"))
-        self.model.add(Dense(4))
-
+        self.model.add(Dense(1))
         self.model.compile(
-            loss="mean_squared_error", optimizer="adam", metrics=["mean_squared_error"]
+            loss="mean_squared_error",
+            optimizer="adam",
+            metrics=["mean_squared_error"],
         )
 
     def fit(self, X_train: pd.DataFrame, y_train: pd.DataFrame):
@@ -43,6 +44,5 @@ class MLP:
     def predict(self, X_test: pd.DataFrame):
         return pd.DataFrame.from_records(
             data=self.model.predict(X_test),
-            index=X_test.index,
-            columns=("Open", "High", "Low", "Close")
+            index=X_test.index
         )

@@ -28,11 +28,21 @@ def _process_dataframes(data_dir: Path):
 
         df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
         df["mid_price"] = (df["best_ask_price"] + df["best_bid_price"]) / 2
-        df = df.set_index("event_time")
 
+        df = df.set_index("event_time")
         columns = df.columns
-        df = df.resample(RESEMPLE_TIME).agg("mean")
-        df.columns = columns
+        df = df.resample(RESEMPLE_TIME).agg(["first", "max", "min", "last", "count"]).dropna()
+        df.columns = pd.MultiIndex.from_tuples(
+            tuples=tuple(zip(
+                columns.repeat(5),
+                ["Open", "High", "Low", "Close", "Volume"] * df.columns.shape[0]
+            )),
+            names=["features", "attributes"],
+        )
+        volumes = df.filter(like="Volume")
+        quantity = volumes.iloc[:, 0]
+        df = df.drop(volumes.columns, axis="columns")
+        df["Trades"] = quantity
 
         yield df
 
@@ -48,8 +58,6 @@ def _load_dataframes(data_dir: Path):
                 "best_bid_qty",
             ],
         )
-
-        # data_file.unlink()
 
 def _normalize_dataframe(df: pd.DataFrame):
     scaler = StandardScaler()

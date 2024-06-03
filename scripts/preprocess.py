@@ -18,7 +18,7 @@ def execute(ticker: str, basedir: Path = Path.cwd() / "data"):
     for index, df in enumerate(dataframes, 1):
         df.to_parquet(data_dir / f"{ticker}-day_{index}-raw.parquet", )
 
-        df = _normalize_dataframe(df)
+        df = _normalize_dataframe(df, basedir, ticker, index)
 
         df.to_parquet(data_dir / f"{ticker}-day_{index}-normalized.parquet")
 
@@ -59,8 +59,9 @@ def _load_dataframes(data_dir: Path):
             ],
         )
 
-def _normalize_dataframe(df: pd.DataFrame, day: int, ticker: str):
+def _normalize_dataframe(df: pd.DataFrame, basedir: Path, ticker: str, day: int):
     scaler = StandardScaler()
+    filename = basedir / "scalers" / f"{ticker}-{day}.pkl"
 
     data_norm = pd.DataFrame.from_records(
         data=scaler.fit_transform(df.values),
@@ -68,8 +69,9 @@ def _normalize_dataframe(df: pd.DataFrame, day: int, ticker: str):
         columns=df.columns
     )
 
-    # salva scaler
-    with open(f"{ticker}-{day}-scaler.pkl", "wb") as f:
+    filename.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(filename, "wb") as f:
         pickle.dump(scaler, f)
 
     return data_norm

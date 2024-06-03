@@ -10,16 +10,16 @@ tickers = list(Path("data/tickers/").glob("**/"))[1:]
 # tickers = [Path("data/tickers/BTC") ]
 
 for ticker in tickers:
-    model = LSTM()
+    model = MLP()
     name = ticker.name
     histories = []
-    datasets = ticker.glob(f"*-normalized.parquet")
+    datasets = ticker.glob(f"*-raw.parquet")
     y_pred = None
 
     print(f"Estamos no ticker {name}!")
 
     for day, filename in enumerate(datasets, 1):
-        print(f"Dia {day} no ticker {name}!")
+        print(f"Filename: {filename}")
 
         df = pd.read_parquet(filename)
         y_train = df["mid_price"]
@@ -40,3 +40,5 @@ for ticker in tickers:
     )
     model.model.save(f"data/models/{model_name}-{name}.keras")
     pd.DataFrame(y_pred).to_parquet(Path("data/predictions") / f"{model_name}-{name}.parquet")
+
+    del model # Ensure the model is reset for the next ticker

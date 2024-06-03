@@ -35,7 +35,8 @@ def _process_dataframes(data_dir: Path):
 
         df = df.set_index("event_time")
         columns = df.columns
-        df = df.resample("1s").agg(["first", "max", "min", "last", "count"]).dropna()
+        RESEMPLE_TIME = "30s"
+        df = df.resample(RESEMPLE_TIME).agg(["first", "max", "min", "last", "count"]).dropna()
         df.columns = pd.MultiIndex.from_tuples(
             tuples=tuple(zip(
                 columns.repeat(5),

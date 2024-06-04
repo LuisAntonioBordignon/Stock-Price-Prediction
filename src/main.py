@@ -46,10 +46,10 @@ for ticker in tickers:
     RMSPE_Close = Metrics.RMSPE(y["Close"], y_hat["Close"])
 
     RMSE = pd.DataFrame.from_dict({
-        "Open": RMSPE_Open,
-        "High": RMSPE_High,
-        "Low": RMSPE_Low,
-        "Close": RMSPE_Close,
+        "Open": [RMSPE_Open],
+        "High": [RMSPE_High],
+        "Low":[RMSPE_Low],
+        "Close": [RMSPE_Close],
     })
 
     RMSE.to_parquet(Path("data/RMSPE") / f"{model_name}-{name}.parquet")

@@ -71,8 +71,12 @@ def _normalize_dataframe(df: pd.DataFrame, basedir: Path, ticker: str, day: int)
 
     filename.parent.mkdir(parents=True, exist_ok=True)
 
+    scaler_2 = StandardScaler()
+
+    scaler_2.fit_transform(df["mid_price"].values)
+
     with open(filename, "wb") as f:
-        pickle.dump(scaler, f)
+        pickle.dump(scaler_2, f)
 
     return data_norm
 

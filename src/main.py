@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.models import *
+from src.lib.metrics import Metrics
 
 
 TRAINING_DAYS = 4
@@ -38,5 +39,19 @@ for ticker in tickers:
     )
     model.model.save(f"data/models/{model_name}-{name}.keras")
     y_hat.to_parquet(Path("data/predictions") / f"{model_name}-{name}.parquet")
+
+    RMSPE_Open = Metrics.RMSPE(y["Open"], y_hat["Open"])
+    RMSPE_High = Metrics.RMSPE(y["High"], y_hat["High"])
+    RMSPE_Low = Metrics.RMSPE(y["Low"], y_hat["Low"])
+    RMSPE_Close = Metrics.RMSPE(y["Close"], y_hat["Close"])
+
+    RMSE = pd.DataFrame.from_dict({
+        "Open": RMSPE_Open,
+        "High": RMSPE_High,
+        "Low": RMSPE_Low,
+        "Close": RMSPE_Close,
+    })
+
+    RMSE.to_parquet(Path("data/RMSPE") / f"{model_name}-{name}.parquet")
 
     del model # Ensure the model is reset for the next ticker

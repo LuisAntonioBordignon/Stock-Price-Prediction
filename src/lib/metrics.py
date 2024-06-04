@@ -22,6 +22,11 @@ class Metrics:
     def RMSE(y_true: pd.DataFrame, y_pred: pd.DataFrame):
         """Root Mean Squared Error"""
         return np.sqrt(Metrics.MSE(y_true, y_pred))
+
+    @staticmethod
+    def RMSPE(y_true: pd.DataFrame, y_pred: pd.DataFrame):
+        """Root Mean Squared Percentage Error"""
+        return np.sqrt(np.mean(np.square((y_true - y_pred) / y_true)))
     
     @staticmethod
     def MAPE(y_true: pd.DataFrame, y_pred: pd.DataFrame):

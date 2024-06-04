@@ -10,7 +10,7 @@ TRAINING_DAYS = 4
 tickers = list(Path("data/tickers/").glob("**/"))[1:]
 
 for ticker in tickers:
-    model = LSTM(17, 5, 256)
+    model = MLP(17, 5, 256)
     name = ticker.name
     histories = []
     datasets = ticker.glob(f"*-normalized.parquet")
